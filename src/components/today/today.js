@@ -10,7 +10,10 @@ import todayStatus from '../testData/todayStatus';
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
-    width: "500px",
+    width: "100%",
+  },
+  container: {
+    width: "100%"
   },
   pos: {
     marginBottom: 12,
@@ -25,39 +28,63 @@ const Today = () => {
 
   return(
     <div className={classes.root}>
-    {todayStatus.map(item => 
-    <Card raised={1}>
-      <CardContent>
-        <div className={classes.title}>
-          <Typography variant="h4" component="h2" gutterBottom>
-            Right Now
-          </Typography>
-          <Typography variant="h4" component="h2" gutterBottom style={{marginLeft: "auto"}}>
-            {item.main.temp}&deg; K
-          </Typography>
-        </div>
-        <Typography variant="h5" component="h2">
-          {item.weather[0].main}
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          {item.weather[0].description}
-        </Typography>
-        <Typography variant="body2" component="p">
-          Humidity: {item.main.humidity}%
-        </Typography>
-        <Typography variant="body2" component="p">
-          <span style={{color:"blue"}}>Low: {item.main.temp_min}&deg;K </span>
-          <span style={{color: "red"}}>High: {item.main.temp_max}&deg;K</span>
-        </Typography>
-        <Typography variant="body2" component="p">
-          Feels Like: {item.main.feels_like}&deg;K
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Hourly View</Button>
-      </CardActions>
-    </Card>
-    )}
+      <div className={classes.container}>
+        {todayStatus.map(item => 
+        <Card raised={1}>
+          <CardContent>
+            <div className={classes.title}>
+              <Typography variant="h4" component="h2" >
+                Right Now
+              </Typography>
+              <Typography variant="h4" component="h2" style={{marginLeft: "auto"}}>
+                {item.main.temp}&deg; K
+              </Typography>
+            </div>
+            <Typography color="textSecondary">
+              {item.name}
+            </Typography>
+            <Typography variant="h5" component="h2" gutterBottom>
+              {item.weather[0].main}
+            </Typography>
+            <Typography className={classes.pos} color="textSecondary">
+              {item.weather[0].description}
+            </Typography>
+            <Typography variant="body2" component="p">
+              Humidity: {item.main.humidity}%
+            </Typography>
+            <Typography variant="body2" component="p">
+              <span style={{color:"blue"}}>Low: {item.main.temp_min}&deg;K </span>
+              <span style={{color: "red"}}>High: {item.main.temp_max}&deg;K</span>
+            </Typography>
+            <Typography variant="body2" component="p">
+              Feels Like: {item.main.feels_like}&deg;K
+            </Typography>
+            <Typography variant="body2" component="p">
+              Clouds: {item.clouds.all}%
+            </Typography>
+            <Typography variant="body2" component="p">
+              Visibility: {item.visibility}
+            </Typography>
+            <Typography variant="body2" component="p">
+              Pressure: {item.main.pressure}
+            </Typography>
+            <Typography variant="body2" component="p">
+              Wind: {item.wind.speed}
+              <br />
+              Deg: {item.wind.deg}
+            </Typography>
+            <Typography variant="body2" component="p">
+              Sunrise: {item.sys.sunrise}
+              <br />
+              Sunset: {item.sys.sunset}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button style={{backgroundColor: "grey", color: "white",}} size="small">Hourly View &gt;</Button>
+          </CardActions>
+        </Card>
+        )}
+      </div>
     </div>
   )
 }

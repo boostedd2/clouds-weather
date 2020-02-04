@@ -4,7 +4,7 @@ import Today from '../today/today'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginTop: "40px",
+    marginTop: "70px",
     padding: "20px"
   },
   container: {
@@ -18,7 +18,7 @@ const FrontPage = () => {
   return(
     <div className={classes.root}>
       <div className={classes.container}>
-        <div>
+        <div style={{width: "100%"}}>
           <h2>Quick Peek</h2>
           <Today />
         </div>
