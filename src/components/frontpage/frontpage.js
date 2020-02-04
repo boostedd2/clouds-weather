@@ -7,6 +7,9 @@ const useStyles = makeStyles(theme => ({
     marginTop: "40px",
     padding: "20px"
   },
+  container: {
+    display: "flex",
+  }
 }));
 
 const FrontPage = () => {
@@ -14,9 +17,11 @@ const FrontPage = () => {
 
   return(
     <div className={classes.root}>
-      <div>
-        <h2>Quick Peek</h2>
-        <Today />
+      <div className={classes.container}>
+        <div>
+          <h2>Quick Peek</h2>
+          <Today />
+        </div>
       </div>
     </div>
   )

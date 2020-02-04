@@ -5,45 +5,60 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import todayStatus from '../testData/todayStatus';
 
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
     width: "500px",
   },
-  title: {
-    //
-  },
   pos: {
     marginBottom: 12,
   },
+  title: {
+    display: "flex",
+  }
 });
 
 const Today = () => {
   const classes = useStyles();
 
   return(
-    <Card className={classes.root} raised={1}>
+    <div className={classes.root}>
+    {todayStatus.map(item => 
+    <Card raised={1}>
       <CardContent>
-        <Typography className={classes.title} gutterBottom>
-          Today
-        </Typography>
+        <div className={classes.title}>
+          <Typography variant="h4" component="h2" gutterBottom>
+            Right Now
+          </Typography>
+          <Typography variant="h4" component="h2" gutterBottom style={{marginLeft: "auto"}}>
+            {item.main.temp}&deg; K
+          </Typography>
+        </div>
         <Typography variant="h5" component="h2">
-          At a Glance
+          {item.weather[0].main}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          Mostly Cloudy
+          {item.weather[0].description}
         </Typography>
         <Typography variant="body2" component="p">
-          Cloudy for most of the day
-          <br />
-          Low chance of Rain
+          Humidity: {item.main.humidity}%
+        </Typography>
+        <Typography variant="body2" component="p">
+          <span style={{color:"blue"}}>Low: {item.main.temp_min}&deg;K </span>
+          <span style={{color: "red"}}>High: {item.main.temp_max}&deg;K</span>
+        </Typography>
+        <Typography variant="body2" component="p">
+          Feels Like: {item.main.feels_like}&deg;K
         </Typography>
       </CardContent>
       <CardActions>
         <Button size="small">Hourly View</Button>
       </CardActions>
     </Card>
+    )}
+    </div>
   )
 }
 
