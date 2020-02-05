@@ -18,7 +18,7 @@ const Navbar = () => {
   const classes = useStyles()
 
   return(
-    <AppBar style={{backgroundColor: "white", color: "black"}} elevation={3}>
+    <AppBar style={{backgroundColor: "rgb(70, 118, 250)", color: "white"}} elevation={3}>
       <Toolbar>
         <h2>Clouds</h2>
         <div className={classes.status}>

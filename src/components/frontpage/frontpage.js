@@ -6,7 +6,10 @@ import FiveDayExtended from '../fiveDayExtended/fiveDayExtended'
 const useStyles = makeStyles(theme => ({
   root: {
     marginTop: "70px",
-    padding: "20px"
+    padding: "0px",
+    [theme.breakpoints.up('md')]: {
+      padding: "20px",
+    }
   },
   container: {
     display: "flex",

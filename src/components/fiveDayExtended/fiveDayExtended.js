@@ -7,6 +7,11 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import fiveDay from '../testData/fiveDay'
 
+const extended = fiveDay[0].list.filter(week => {   
+  return week.dt_txt.includes("12:00:00")
+  }
+)
+
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -31,7 +36,7 @@ const FiveDayExtended = () => {
     <div className={classes.root}>
       <h2>5 Day Extended</h2>
       <div className={classes.container}>
-        {fiveDay[0].list.map(item => 
+        {extended.map(item => 
         <Card style={{marginBottom: "10px"}} raised={1}>
           <CardContent>
             <div className={classes.title}>
@@ -43,7 +48,7 @@ const FiveDayExtended = () => {
               </Typography>
             </div>
             <Typography color="textSecondary">
-              {item.name}
+              {fiveDay[0].city.name}
             </Typography>
             <Typography variant="h5" component="h2" gutterBottom>
               {item.weather[0].main}
@@ -59,13 +64,7 @@ const FiveDayExtended = () => {
               <span style={{color: "red"}}>High: {item.main.temp_max}&deg;K</span>
             </Typography>
             <Typography variant="body2" component="p">
-              Feels Like: {item.main.feels_like}&deg;K
-            </Typography>
-            <Typography variant="body2" component="p">
               Clouds: {item.clouds.all}%
-            </Typography>
-            <Typography variant="body2" component="p">
-              Visibility: {item.visibility}
             </Typography>
             <Typography variant="body2" component="p">
               Pressure: {item.main.pressure}
@@ -74,11 +73,11 @@ const FiveDayExtended = () => {
               Wind: {item.wind.speed}
               <br />
               Deg: {item.wind.deg}
-            </Typography>
-            <Typography variant="body2" component="p">
-              Sunrise: {item.sys.sunrise}
               <br />
-              Sunset: {item.sys.sunset}
+              <br />
+              <br />
+              <br />
+              <br />
             </Typography>
           </CardContent>
           <CardActions>
