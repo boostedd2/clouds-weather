@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Today from '../today/today'
+import FiveDayExtended from '../fiveDayExtended/fiveDayExtended'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,6 +22,7 @@ const FrontPage = () => {
         <div style={{width: "100%"}}>
           <h2>Quick Peek</h2>
           <Today />
+          <FiveDayExtended />
         </div>
       </div>
     </div>
