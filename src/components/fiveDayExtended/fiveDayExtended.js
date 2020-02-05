@@ -11,6 +11,7 @@ const useStyles = makeStyles({
   root: {
     minWidth: 275,
     width: "100%",
+    padding: "10px",
   },
   container: {
     width: "100%"
@@ -28,9 +29,10 @@ const FiveDayExtended = () => {
 
   return(
     <div className={classes.root}>
+      <h2>5 Day Extended</h2>
       <div className={classes.container}>
         {fiveDay[0].list.map(item => 
-        <Card raised={1}>
+        <Card style={{marginBottom: "10px"}} raised={1}>
           <CardContent>
             <div className={classes.title}>
               <Typography variant="h4" component="h2" >

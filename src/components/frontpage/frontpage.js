@@ -10,6 +10,14 @@ const useStyles = makeStyles(theme => ({
   },
   container: {
     display: "flex",
+  },
+  forecastLayout: {
+    width: "100%", 
+    display: "flex",
+    flexWrap: "wrap",
+    [theme.breakpoints.up('md')]: {
+      flexWrap: "nowrap"
+    }
   }
 }));
 
@@ -19,8 +27,7 @@ const FrontPage = () => {
   return(
     <div className={classes.root}>
       <div className={classes.container}>
-        <div style={{width: "100%"}}>
-          <h2>Quick Peek</h2>
+        <div className={classes.forecastLayout}>
           <Today />
           <FiveDayExtended />
         </div>

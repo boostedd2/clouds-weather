@@ -11,6 +11,7 @@ const useStyles = makeStyles({
   root: {
     minWidth: 275,
     width: "100%",
+    padding: "10px",
   },
   container: {
     width: "100%"
@@ -28,6 +29,7 @@ const Today = () => {
 
   return(
     <div className={classes.root}>
+      <h2>Quick Look</h2>
       <div className={classes.container}>
         {todayStatus.map(item => 
         <Card raised={1}>
