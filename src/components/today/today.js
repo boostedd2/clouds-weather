@@ -6,26 +6,32 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import todayStatus from '../testData/todayStatus';
-import clear from '../assets/clear.png'
+import clear from '../assets/clear.jpg'
 import night from '../assets/nightClear.png'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     minWidth: 275,
     width: "100%",
-    padding: "10px",
+    padding: "15px",
   },
   container: {
     width: "100%",
+    display: "flex",
+    flexWrap: "wrap",
+    [theme.breakpoints.up('md')]: {
+      flexWrap: "nowrap",
+    },
   },
   card: {
-    backgroundImage: "url(" + clear+ ")",
-    backgroundSize: "100% 100%",
-    backgroundRepeat: "no-repeat",
-    marginBottom: "10px"
+    width: "100%",
+    margin: "0px",
+    [theme.breakpoints.up('md')]: {
+      margin: "5px",
+    },
   },
   cardBackground: {
-    backgroundColor: "rgba(255,255,255,.5)",
+    backgroundColor: "rgba(255,255,255,.7)",
     width: "80%",
     borderRadius: "5px"
   },
@@ -35,7 +41,7 @@ const useStyles = makeStyles({
   title: {
     display: "flex",
   }
-});
+}));
 
 const Today = () => {
   const classes = useStyles();
@@ -45,7 +51,7 @@ const Today = () => {
       <h2>Quick Look</h2>
       <div className={classes.container}>
         {todayStatus.map(item => 
-        <Card style={{backgroundImage: "url(" + clear + ")", backgroundSize: "100% 100%", backgroundRepeat: "no-repeat", marginBottom: "10px"}} raised={1}>
+        <Card className={classes.card} style={{backgroundImage: "url(" + clear + ")", backgroundSize: "100% 100%", backgroundRepeat: "no-repeat", marginBottom: "10px"}} raised={1}>
           <CardContent>
             <div className={classes.title}>
               <Typography variant="h4" component="h2" >
@@ -102,7 +108,7 @@ const Today = () => {
         </Card>
         )}
         {todayStatus.map(item => 
-        <Card style={{backgroundImage: "url(" + night + ")", backgroundSize: "100% 100%", backgroundRepeat: "no-repeat", marginBottom: "10px"}} raised={1}>
+        <Card className={classes.card} style={{backgroundImage: "url(" + night + ")", backgroundSize: "100% 100%", backgroundRepeat: "no-repeat", marginBottom: "10px"}} raised={1}>
           <CardContent>
             <div className={classes.title}>
               <Typography style={{color: "white"}} variant="h4" component="h2" >

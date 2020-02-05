@@ -16,11 +16,6 @@ const useStyles = makeStyles(theme => ({
   },
   forecastLayout: {
     width: "100%", 
-    display: "flex",
-    flexWrap: "wrap",
-    [theme.breakpoints.up('md')]: {
-      flexWrap: "nowrap"
-    }
   }
 }));
 
