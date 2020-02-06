@@ -11,9 +11,12 @@ import night from '../assets/nightClear.png'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    minWidth: 275,
     width: "100%",
-    padding: "15px",
+    [theme.breakpoints.up('md')]: {
+      width: "100%",
+    },
+    marginLeft: "auto",
+    marginRight: "auto"
   },
   container: {
     width: "100%",
@@ -29,6 +32,9 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('md')]: {
       margin: "5px",
     },
+    marginBottom: "10px",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "100% 100%"
   },
   cardBackground: {
     backgroundColor: "rgba(255,255,255,.7)",
@@ -48,10 +54,9 @@ const Today = () => {
 
   return(
     <div className={classes.root}>
-      <h2>Quick Look</h2>
       <div className={classes.container}>
         {todayStatus.map(item => 
-        <Card className={classes.card} style={{backgroundImage: "url(" + clear + ")", backgroundSize: "100% 100%", backgroundRepeat: "no-repeat", marginBottom: "10px"}} raised={1}>
+        <Card className={classes.card} style={{backgroundImage: "url(" + clear + ")"}} raised={1}>
           <CardContent>
             <div className={classes.title}>
               <Typography variant="h4" component="h2" >

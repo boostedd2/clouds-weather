@@ -18,11 +18,11 @@ const Navbar = () => {
   const classes = useStyles()
 
   return(
-    <AppBar style={{backgroundColor: "rgb(70, 118, 250)", color: "white"}} elevation={3}>
+    <AppBar style={{backgroundColor: "rgb(70, 118, 250)", color: "white", height: "50px"}} elevation={3}>
       <Toolbar>
         <h2>Clouds</h2>
         <div className={classes.status}>
-          <h2>12:37 PM | Jan. 1. 1970</h2>
+          <h4>12:37 PM | Jan. 1. 1970</h4>
         </div>
       </Toolbar>
     </AppBar>

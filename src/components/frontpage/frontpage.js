@@ -5,7 +5,7 @@ import FiveDayExtended from '../fiveDayExtended/fiveDayExtended'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginTop: "70px",
+    marginTop: "50px",
     padding: "0px",
     [theme.breakpoints.up('md')]: {
       padding: "20px",
@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
   },
   forecastLayout: {
-    width: "100%", 
+    width: "100%",
   }
 }));
 
