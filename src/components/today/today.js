@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect }from 'react';
+import 'dotenv/config';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -8,6 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import todayStatus from '../testData/todayStatus';
 import clear from '../assets/clear.jpg'
 import night from '../assets/nightClear.png'
+import rain from '../assets/rain.jpg';
+import axios from 'axios';
+import ZipInput from '../zipinput/zipInput';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,6 +21,15 @@ const useStyles = makeStyles(theme => ({
     },
     marginLeft: "auto",
     marginRight: "auto"
+  },
+  inputBar: {
+    marginTop: "10px",
+    marginBottom: "10px",
+    [theme.breakpoints.up('md')]: {
+      marginTop: "-15px",
+      marginLeft: "10px",
+      marginBottom: "5px"
+    },
   },
   container: {
     width: "100%",
@@ -28,9 +41,10 @@ const useStyles = makeStyles(theme => ({
   },
   card: {
     width: "100%",
-    margin: "0px",
     [theme.breakpoints.up('md')]: {
-      margin: "5px",
+      marginLeft: "5px ",
+      marginRight: "5px",
+      marginBottom: "10px"
     },
     marginBottom: "10px",
     backgroundRepeat: "no-repeat",
@@ -49,14 +63,39 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+//dynamically load background for weather cards
+const statusBackground = (status) => {
+  if (status === 'Clear') {
+    return clear
+  } else if (status === 'Rain') {
+    return rain
+  }
+}
+
 const Today = () => {
   const classes = useStyles();
+  const [forToday, setForToday] = useState([])
 
+  useEffect(() => {
+    axios.get('https://api.openweathermap.org/data/2.5/weather?zip=06612,us&appid=' + process.env.REACT_APP_API_KEY
+    )
+    .then(res => {
+      setForToday([res.data])
+      console.log(forToday)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }, [])
+  
   return(
     <div className={classes.root}>
+      <div className={classes.inputBar}>
+        <ZipInput />
+      </div>
       <div className={classes.container}>
-        {todayStatus.map(item => 
-        <Card className={classes.card} style={{backgroundImage: "url(" + clear + ")"}} raised={1}>
+        {forToday.map(item => 
+        <Card className={classes.card} style={{backgroundImage: "url(" + statusBackground(item.weather[0].main) + ")"}} raised={1}>
           <CardContent>
             <div className={classes.title}>
               <Typography variant="h4" component="h2" >
@@ -113,7 +152,7 @@ const Today = () => {
         </Card>
         )}
         {todayStatus.map(item => 
-        <Card className={classes.card} style={{backgroundImage: "url(" + night + ")", backgroundSize: "100% 100%", backgroundRepeat: "no-repeat", marginBottom: "10px"}} raised={1}>
+        <Card className={classes.card} style={{backgroundImage: "url(" + night + ")"}} raised={1}>
           <CardContent>
             <div className={classes.title}>
               <Typography style={{color: "white"}} variant="h4" component="h2" >

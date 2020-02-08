@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
   forecastLayout: {
     width: "100%",
-  }
+  },
 }));
 
 const FrontPage = () => {

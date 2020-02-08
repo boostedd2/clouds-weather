@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import fiveDay from '../testData/fiveDay'
 import clear from '../assets/clear.jpg'
+import rain from '../assets/rain.jpg';
 
 const extended = fiveDay[0].list.filter(week => {   
   return week.dt_txt.includes("12:00:00")
@@ -48,6 +49,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+//dynamically load background for weather cards
+const statusBackground = (status) => {
+  if (status === 'Clear') {
+    return clear
+  } else if (status === 'Rain') {
+    return rain
+  }
+}
+
 const FiveDayExtended = () => {
   const classes = useStyles();
 
@@ -55,7 +65,7 @@ const FiveDayExtended = () => {
     <div className={classes.root}>
       <div className={classes.container}>
         {extended.map(item => 
-        <Card className={classes.card} style={{backgroundImage: "url(" + clear + ")",}} raised={1}>
+        <Card className={classes.card} style={{backgroundImage: "url(" + statusBackground(item.weather[0].main) + ")",}} raised={1}>
           <CardContent>
             <div className={classes.title}>
               <Typography variant="h4" component="h2" >
