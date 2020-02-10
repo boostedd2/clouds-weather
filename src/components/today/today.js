@@ -11,7 +11,6 @@ import clear from '../assets/clear.jpg'
 import night from '../assets/nightClear.png'
 import rain from '../assets/rain.jpg';
 import axios from 'axios';
-import ZipInput from '../zipinput/zipInput';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,6 +29,28 @@ const useStyles = makeStyles(theme => ({
       marginLeft: "10px",
       marginBottom: "5px"
     },
+  },
+  inputBox: {
+    backgroundColor: "transparent",
+    border: "none",
+    borderBottom: "solid white 1px",
+    color: "white",
+    fontSize: "16px",
+    '&::placeholder': {
+      color: "white", 
+    },
+    '&:focus': {
+      outline: "none",
+    }
+  },
+  submit: {
+    marginLeft: "5px",
+    backgroundColor: "transparent",
+    border: "solid white 1px",
+    color: "white",
+    '&:focus': {
+      outline: "none"
+    }
   },
   container: {
     width: "100%",
@@ -74,27 +95,39 @@ const statusBackground = (status) => {
 
 const Today = () => {
   const classes = useStyles();
+  const [userZip, setUserZip] = useState('')
   const [forToday, setForToday] = useState([])
+  const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    axios.get('https://api.openweathermap.org/data/2.5/weather?zip=06612,us&appid=' + process.env.REACT_APP_API_KEY
+  //grab user input for zipcode
+  const handleZip = (e) => {
+    setUserZip(e.target.value)
+  }
+
+
+  //api call to openweather using user specified zipcode, displays current weather, updates every 10 minutes
+  const getWeather = () => {
+    axios.get('https://api.openweathermap.org/data/2.5/weather?zip=' + userZip  + ',us&appid=' + process.env.REACT_APP_API_KEY
     )
     .then(res => {
       setForToday([res.data])
-      console.log(forToday)
+      setLoading(false)
     })
     .catch(err => {
       console.log(err)
     })
-  }, [])
+  }
   
   return(
     <div className={classes.root}>
       <div className={classes.inputBar}>
-        <ZipInput />
+        <div className={classes.root}>
+          <input className={classes.inputBox} type="text" placeholder="Enter Zip" onChange={e => handleZip(e)} />
+          <button className={classes.submit} onClick={() => getWeather()}>GO</button>
+        </div>
       </div>
       <div className={classes.container}>
-        {forToday.map(item => 
+        {loading ? <div>Enter a zipcode to start</div> : forToday.map(item => 
         <Card className={classes.card} style={{backgroundImage: "url(" + statusBackground(item.weather[0].main) + ")"}} raised={1}>
           <CardContent>
             <div className={classes.title}>
