@@ -96,7 +96,7 @@ const statusBackground = (status) => {
   }
 }
 
-const Today = ({userZip, setUserZip, setExtendedForecast, loading, setLoading}) => {
+const Today = ({userZip, setUserZip, extendedForecast, setExtendedForecast, loading, setLoading}) => {
   const classes = useStyles();
   const [forToday, setForToday] = useState([])
 
@@ -112,10 +112,11 @@ const Today = ({userZip, setUserZip, setExtendedForecast, loading, setLoading}) 
       axios.get('https://api.openweathermap.org/data/2.5/weather?zip=' + userZip  + ',us&appid=' + process.env.REACT_APP_API_KEY),
       axios.get('https://api.openweathermap.org/data/2.5/forecast?zip=' + userZip  + ',us&appid=' + process.env.REACT_APP_API_KEY)
     ])
-    .then(axios.spread((todayRes, extendedRes) => {
-      setForToday([todayRes.data])
-      setExtendedForecast([extendedRes.data])
-      setLoading(false)
+    .then(axios.spread((res1, res2) => {
+      setForToday([res1.data])
+      setExtendedForecast([res2.data])
+      console.log(forToday, extendedForecast)
+      //setLoading(false)
     }))
     .catch(err => {
       console.log(err)
