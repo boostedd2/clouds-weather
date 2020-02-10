@@ -1,4 +1,4 @@
-import React, { useState, useEffect }from 'react';
+import React, { useState }from 'react';
 import 'dotenv/config';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -10,6 +10,7 @@ import todayStatus from '../testData/todayStatus';
 import clear from '../assets/clear.jpg'
 import night from '../assets/nightClear.png'
 import rain from '../assets/rain.jpg';
+import clouds from '../assets/clouds.jpg';
 import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
@@ -90,14 +91,14 @@ const statusBackground = (status) => {
     return clear
   } else if (status === 'Rain') {
     return rain
+  } else if (status === 'Clouds') {
+    return clouds
   }
 }
 
-const Today = () => {
+const Today = ({userZip, setUserZip, setExtendedForecast, loading, setLoading}) => {
   const classes = useStyles();
-  const [userZip, setUserZip] = useState('')
   const [forToday, setForToday] = useState([])
-  const [loading, setLoading] = useState(true)
 
   //grab user input for zipcode
   const handleZip = (e) => {
@@ -107,12 +108,15 @@ const Today = () => {
 
   //api call to openweather using user specified zipcode, displays current weather, updates every 10 minutes
   const getWeather = () => {
-    axios.get('https://api.openweathermap.org/data/2.5/weather?zip=' + userZip  + ',us&appid=' + process.env.REACT_APP_API_KEY
-    )
-    .then(res => {
-      setForToday([res.data])
+    axios.all([
+      axios.get('https://api.openweathermap.org/data/2.5/weather?zip=' + userZip  + ',us&appid=' + process.env.REACT_APP_API_KEY),
+      axios.get('https://api.openweathermap.org/data/2.5/forecast?zip=' + userZip  + ',us&appid=' + process.env.REACT_APP_API_KEY)
+    ])
+    .then(axios.spread((todayRes, extendedRes) => {
+      setForToday([todayRes.data])
+      setExtendedForecast([extendedRes.data])
       setLoading(false)
-    })
+    }))
     .catch(err => {
       console.log(err)
     })

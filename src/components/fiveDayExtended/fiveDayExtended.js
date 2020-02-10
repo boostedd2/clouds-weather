@@ -58,13 +58,13 @@ const statusBackground = (status) => {
   }
 }
 
-const FiveDayExtended = () => {
+const FiveDayExtended = ({userZip, extendedForecast, loading, setLoading}) => {
   const classes = useStyles();
 
   return(
     <div className={classes.root}>
       <div className={classes.container}>
-        {extended.map(item => 
+        {loading ? <div></div> : extendedForecast.map(item => 
         <Card className={classes.card} style={{backgroundImage: "url(" + statusBackground(item.weather[0].main) + ")",}} raised={1}>
           <CardContent>
             <div className={classes.title}>
