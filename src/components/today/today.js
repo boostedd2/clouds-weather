@@ -99,6 +99,7 @@ const statusBackground = (status) => {
 const Today = ({userZip, setUserZip, extendedForecast, setExtendedForecast, loading, setLoading}) => {
   const classes = useStyles();
   const [forToday, setForToday] = useState([])
+  const [forTonight, setForTonight] = useState([])
   const [fetchDataComplete, setFetchDataComplete] = useState(false)
 
   //grab user input for zipcode
@@ -110,8 +111,8 @@ const Today = ({userZip, setUserZip, extendedForecast, setExtendedForecast, load
   //api call to openweather using user specified zipcode, displays current weather, updates every 10 minutes
   const getWeather = () => {
     axios.all([
-      axios.get('https://api.openweathermap.org/data/2.5/weather?zip=' + userZip  + ',us&appid=' + process.env.REACT_APP_API_KEY),
-      axios.get('https://api.openweathermap.org/data/2.5/forecast?zip=' + userZip  + ',us&appid=' + process.env.REACT_APP_API_KEY)
+      axios.get('https://api.openweathermap.org/data/2.5/weather?zip=' + userZip  + ',us&units=imperial&appid=' + process.env.REACT_APP_API_KEY),
+      axios.get('https://api.openweathermap.org/data/2.5/forecast?zip=' + userZip  + ',us&units=imperial&appid=' + process.env.REACT_APP_API_KEY)
     ])
     .then(axios.spread((res1, res2) => {
       setForToday([res1.data])
@@ -147,7 +148,7 @@ const Today = ({userZip, setUserZip, extendedForecast, setExtendedForecast, load
                 Right Now
               </Typography>
               <Typography variant="h4" component="h2" style={{marginLeft: "auto"}}>
-                {item.main.temp}&deg; K
+                {item.main.temp}&deg; F
               </Typography>
             </div>
             <div className={classes.cardBackground}>
@@ -164,11 +165,11 @@ const Today = ({userZip, setUserZip, extendedForecast, setExtendedForecast, load
                 Humidity: {item.main.humidity}%
               </Typography>
               <Typography variant="body2" component="p">
-                <span style={{color:"blue"}}>Low: {item.main.temp_min}&deg;K </span>
-                <span style={{color: "red"}}>High: {item.main.temp_max}&deg;K</span>
+                <span style={{color:"blue"}}>Low: {item.main.temp_min}&deg;F </span>
+                <span style={{color: "red"}}>High: {item.main.temp_max}&deg;F</span>
               </Typography>
               <Typography variant="body2" component="p">
-                Feels Like: {item.main.feels_like}&deg;K
+                Feels Like: {item.main.feels_like}&deg;F
               </Typography>
               <Typography variant="body2" component="p">
                 Clouds: {item.clouds.all}%

@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import clear from '../assets/clear.jpg'
 import rain from '../assets/rain.jpg';
+import clouds from '../assets/clouds.jpg';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,6 +41,9 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     display: "flex",
+  },
+  titleDay: {
+    marginRight: "20px"
   }
 }));
 
@@ -49,6 +53,8 @@ const statusBackground = (status) => {
     return clear
   } else if (status === 'Rain') {
     return rain
+  } else if (status === 'Clouds') {
+    return clouds
   }
 }
 
@@ -77,11 +83,11 @@ const FiveDayExtended = ({userZip, extendedForecast, loading, setLoading}) => {
         <Card className={classes.card} style={{backgroundImage: "url(" + statusBackground(item.weather[0].main) + ")",}} raised={1}>
           <CardContent>
             <div className={classes.title}>
-              <Typography variant="h4" component="h2" >
+              <Typography className={classes.titleDay} variant="h4" component="h2" >
                 Mon
               </Typography>
               <Typography variant="h4" component="h2" style={{marginLeft: "auto"}}>
-                {item.main.temp}&deg; K
+                {item.main.temp}&deg; F
               </Typography>
             </div>
             <div className={classes.cardBackground}>
@@ -98,8 +104,8 @@ const FiveDayExtended = ({userZip, extendedForecast, loading, setLoading}) => {
                 Humidity: {item.main.humidity}%
               </Typography>
               <Typography variant="body2" component="p">
-                <span style={{color:"blue"}}>Low: {item.main.temp_min}&deg;K </span>
-                <span style={{color: "red"}}>High: {item.main.temp_max}&deg;K</span>
+                <span style={{color:"blue"}}>Low: {item.main.temp_min}&deg;F </span>
+                <span style={{color: "red"}}>High: {item.main.temp_max}&deg;F</span>
               </Typography>
               <Typography variant="body2" component="p">
                 Clouds: {item.clouds.all}%
