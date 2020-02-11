@@ -1,4 +1,4 @@
-import React, { useState }from 'react';
+import React, { useState, useEffect }from 'react';
 import 'dotenv/config';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -99,6 +99,7 @@ const statusBackground = (status) => {
 const Today = ({userZip, setUserZip, extendedForecast, setExtendedForecast, loading, setLoading}) => {
   const classes = useStyles();
   const [forToday, setForToday] = useState([])
+  const [fetchDataComplete, setFetchDataComplete] = useState(false)
 
   //grab user input for zipcode
   const handleZip = (e) => {
@@ -115,13 +116,19 @@ const Today = ({userZip, setUserZip, extendedForecast, setExtendedForecast, load
     .then(axios.spread((res1, res2) => {
       setForToday([res1.data])
       setExtendedForecast([res2.data])
-      console.log(forToday, extendedForecast)
-      //setLoading(false)
+      setFetchDataComplete(true)
     }))
     .catch(err => {
       console.log(err)
     })
   }
+
+  useEffect(() => {
+    if (fetchDataComplete) {
+        setLoading(false)
+        console.log(forToday, extendedForecast)
+    }
+  }, [loading, fetchDataComplete]);
   
   return(
     <div className={classes.root}>
