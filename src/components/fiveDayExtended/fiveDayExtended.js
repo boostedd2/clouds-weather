@@ -86,7 +86,7 @@ const FiveDayExtended = ({userZip, extendedForecast, loading, setLoading}) => {
             </div>
             <div className={classes.cardBackground}>
               <Typography color="textSecondary">
-                {extended[0].city.name}
+                {extendedForecast[0].city.name}
               </Typography>
               <Typography variant="h5" component="h2" gutterBottom>
                 {item.weather[0].main}
