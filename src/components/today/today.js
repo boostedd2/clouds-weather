@@ -53,6 +53,13 @@ const useStyles = makeStyles(theme => ({
       outline: "none"
     }
   },
+  start: {
+    fontSize: "40px",
+    color: "white",
+    marginTop: "80px",
+    marginLeft: "auto",
+    marginRight: "auto"
+  },
   container: {
     width: "100%",
     display: "flex",
@@ -140,7 +147,7 @@ const Today = ({userZip, setUserZip, extendedForecast, setExtendedForecast, load
         </div>
       </div>
       <div className={classes.container}>
-        {loading ? <div>Enter a zipcode to start</div> : forToday.map(item => 
+        {loading ? <div className={classes.start}>Enter a zipcode to start</div> : forToday.map(item => 
         <Card className={classes.card} style={{backgroundImage: "url(" + statusBackground(item.weather[0].main) + ")"}} raised={1}>
           <CardContent>
             <div className={classes.title}>
@@ -197,7 +204,7 @@ const Today = ({userZip, setUserZip, extendedForecast, setExtendedForecast, load
           </CardActions>
         </Card>
         )}
-        {todayStatus.map(item => 
+        {loading ? <div></div> : todayStatus.map(item => 
         <Card className={classes.card} style={{backgroundImage: "url(" + night + ")"}} raised={1}>
           <CardContent>
             <div className={classes.title}>
