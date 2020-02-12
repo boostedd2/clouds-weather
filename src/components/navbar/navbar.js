@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Clock from './clock'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,7 +23,7 @@ const Navbar = () => {
       <Toolbar>
         <h2>Clouds</h2>
         <div className={classes.status}>
-          <h4>12:37 PM | Jan. 1. 1970</h4>
+          <h4><Clock /></h4>
         </div>
       </Toolbar>
     </AppBar>
